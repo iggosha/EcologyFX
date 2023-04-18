@@ -80,25 +80,37 @@ public class EcologyConroller {
         };
         double[] MLk = {0, 0, 0, 0, 0, 0, 0};
         double[] ML = {0, 0, 0, 0, 0, 0, 0};
+        double RV = 0;
 
-        if (autoTextLightweight1.getText().equals("") ||
-                autoTextBusLight2.getText().equals("") ||
-                autoTextBusHeavy3.getText().equals("") ||
-                autoTextTruckLight4.getText().equals("") ||
-                autoTextTruckHeavy5.getText().equals("") ||
-                roadText6.getText().equals("")
+        switch (Integer.parseInt(avgSpeed.getSelectionModel().getSelectedItem())) {
+            case 5 -> RV = 1.4;
+            case 10 -> RV = 1.35;
+            case 15 -> RV = 1.30;
+            case 20 -> RV = 1.20;
+            case 25 -> RV = 1.10;
+            case 30 -> RV = 1.00;
+            case 35 -> RV = 0.90;
+            case 40 -> RV = 0.75;
+            case 45 -> RV = 0.65;
+            case 50 -> RV = 0.50;
+            case 60 -> RV = 0.30;
+            case 70 -> RV = 0.40;
+            case 80 -> RV = 0.50;
+            case 100 -> RV = 0.65;
+            case 110 -> RV = 0.75;
+            case 120 -> RV = 0.95;
+        }
+
+        if (autoTextLightweight1.getText().equals("") || autoTextBusLight2.getText().equals("") ||
+                autoTextBusHeavy3.getText().equals("") || autoTextTruckLight4.getText().equals("") ||
+                autoTextTruckHeavy5.getText().equals("") || roadText6.getText().equals("")
         ) {
-            elemCO1.setText("");
-            elemNO2.setText("");
-            elemCH3.setText("");
-            elemSazha4.setText("");
-            elemSO5.setText("");
-            elemFrm6.setText("");
-            elemBnz7.setText("");
+            elemCO1.setText(""); elemNO2.setText(""); elemCH3.setText(""); elemSazha4.setText("");
+            elemSO5.setText(""); elemFrm6.setText(""); elemBnz7.setText("");
             return;
         }
         for (int j = 0; j < ML.length; j++) {
-            double Gk = 0, RV1 = 0, L = Integer.parseInt(roadText6.getText());
+            double Gk = 0, L = Integer.parseInt(roadText6.getText());
             for (int i = 0; i < elemCategories.length; i++) {
                 MLk[j] += elemCategories[i][j];
             }
@@ -107,8 +119,7 @@ public class EcologyConroller {
             Gk += Integer.parseInt(autoTextBusHeavy3.getText());
             Gk += Integer.parseInt(autoTextTruckLight4.getText());
             Gk += Integer.parseInt(autoTextTruckHeavy5.getText());
-            RV1 += Integer.parseInt(avgSpeed.getSelectionModel().getSelectedItem());
-            ML[j] = (L / 3600) * (MLk[j]) * Gk * RV1;
+            ML[j] = (L / 3600) * (MLk[j]) * Gk * RV;
         }
 
         elemCO1.setText(String.valueOf(ML[0]));
